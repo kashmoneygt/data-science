@@ -71,7 +71,7 @@ macro_rules! iris_row {
 }
 
 /// [Fisher's Iris data set](https://en.wikipedia.org/wiki/Iris_flower_data_set).
-pub const IRIS_DATA: &[Iris; 150] = &[
+pub const DATA: &[Iris; 150] = &[
     iris_row!(5.1, 3.5, 1.4, 0.2, IrisSetosa),
     iris_row!(4.9, 3.0, 1.4, 0.2, IrisSetosa),
     iris_row!(4.7, 3.2, 1.3, 0.2, IrisSetosa),
@@ -230,7 +230,7 @@ fn count_species() {
     let mut versicolor = 0;
     let mut virginica = 0;
 
-    for i in IRIS_DATA {
+    for i in DATA {
         match i.species {
             Species::IrisSetosa => setosa += 1,
             Species::IrisVersicolor => versicolor += 1,

@@ -2982,3 +2982,19 @@ pub const DATA: [BreastCancer; 569] = [
         0.06444, 0, 0, 0.2871, 0.07039, 1
     ),
 ];
+
+#[test]
+fn count_label() {
+    let mut malignant = 0;
+    let mut benign = 0;
+
+    for i in DATA {
+        match i.label {
+            Label::Benign => benign += 1,
+            Label::Malignant => malignant += 1,
+        }
+    }
+
+    assert_eq!(benign, 357);
+    assert_eq!(malignant, 212);
+}

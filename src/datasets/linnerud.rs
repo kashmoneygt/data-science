@@ -29,7 +29,7 @@ macro_rules! linnerud_row {
     };
 }
 
-const DATA: [Linnerud; 20] = [
+pub const DATA: [Linnerud; 20] = [
     linnerud_row!(191, 36, 50, 5, 162, 60),
     linnerud_row!(189, 37, 52, 2, 110, 60),
     linnerud_row!(193, 38, 58, 12, 101, 101),
