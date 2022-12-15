@@ -1,9 +1,14 @@
+use std::ops::{Index, IndexMut};
+
+use crate::utils::scale;
+
 /// [Diabetes dataset](https://github.com/scikit-learn/scikit-learn/blob/dc580a8ef5ee2a8aea80498388690e2213118efd/sklearn/datasets/descr/diabetes.rst) with 10 features and a target value, typically used for regression.
 ///
 /// Ten baseline variables (age, sex, body mass index, average blood pressure, and six blood serum measurements) were obtained for each of n = 442 diabetes patients, as well as the response of interest, a quantitative measure of disease progression one year after baseline.
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Diabetes {
-    pub age: i32,
-    pub sex: Sex,
+    pub age: f32,
+    pub sex: f32,
     pub bmi: f32,
     pub bp: f32,
     pub tc: f32,
@@ -16,13 +21,42 @@ pub struct Diabetes {
     pub target: i32,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum Sex {
-    Class1,
-    Class2,
-    // TODO: The `sex` feature only contains the numeric values 1 and 2, and it is not known which corresponds to male/female
-    // Additionally, this feature is typically treated as a numeric attribute rather than a categorical attribute in academia
-    // Should we should represent this feature as a categorical (if so, implement `Sex.to_str()`) or as a numeric attribute?
+impl Index<usize> for Diabetes {
+    type Output = f32;
+
+    fn index(&self, index: usize) -> &Self::Output {
+        match index {
+            0 => &self.age,
+            1 => &self.sex,
+            2 => &self.bmi,
+            3 => &self.bp,
+            4 => &self.tc,
+            5 => &self.ldl,
+            6 => &self.hdl,
+            7 => &self.tch,
+            8 => &self.ltg,
+            9 => &self.glu,
+            _ => panic!("Invalid index"),
+        }
+    }
+}
+
+impl IndexMut<usize> for Diabetes {
+    fn index_mut(&mut self, index: usize) -> &mut f32 {
+        match index {
+            0 => &mut self.age,
+            1 => &mut self.sex,
+            2 => &mut self.bmi,
+            3 => &mut self.bp,
+            4 => &mut self.tc,
+            5 => &mut self.ldl,
+            6 => &mut self.hdl,
+            7 => &mut self.tch,
+            8 => &mut self.ltg,
+            9 => &mut self.glu,
+            _ => panic!("Invalid index"),
+        }
+    }
 }
 
 impl Diabetes {
@@ -40,20 +74,35 @@ impl Diabetes {
         "glu (blood sugar level)",
     ];
 
-    // TODO: We are specifying raw data, but typically it is normalized and scaled
-    // When we define a pub fn to access the data, provide a `scaled` parameter for the user to specify
-    // https://github.com/scikit-learn/scikit-learn/blob/dc580a8ef5ee2a8aea80498388690e2213118efd/sklearn/datasets/_base.py#L1032
+    pub fn get_as_vec(scaled: bool) -> Vec<Self> {
+        let data = DATA.to_vec();
+
+        if scaled {
+            for i in 0..Self::NUM_FEATURES {
+                let col = data.iter().map(|row| row[i]).collect();
+                let col_scaled = scale::scale(&col);
+            }
+
+            todo!("Implement scaling");
+        }
+
+        data
+    }
+
+    // pub fn get_as_frame(scaled: bool) -> DataFrame {
+    //     let mut df = DataFrame::new();
+    //     for (i, feature) in Self::FEATURE_NAMES.iter().enumerate() {
+    //         df.insert(feature, DATA.iter().map(|row| row[i]).collect());
+    //     }
+    //     df
+    // }
 }
 
 macro_rules! diabetes_row {
     ($age:literal, $sex:literal, $bmi:literal, $bp:literal, $tc:literal, $ldl:literal, $hdl:literal, $tch:literal, $ltg:literal, $glu:literal, $target: literal) => {
         Diabetes {
-            age: $age as i32,
-            sex: match $sex as i32 {
-                1 => Sex::Class1,
-                2 => Sex::Class2,
-                _ => unreachable!(),
-            },
+            age: $age as f32,
+            sex: $sex as f32,
             bmi: $bmi as f32,
             bp: $bp as f32,
             tc: $tc as f32,

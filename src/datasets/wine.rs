@@ -1,6 +1,7 @@
 /// [Wine recognition dataset](https://github.com/scikit-learn/scikit-learn/blob/dc580a8ef5ee2a8aea80498388690e2213118efd/sklearn/datasets/descr/wine_data.rst) with 13 numeric, predictive attributes and the class.
 ///
 /// The data is the results of a chemical analysis of wines grown in the same region in Italy by three different cultivators. There are thirteen different measurements taken for different constituents found in the three types of wine.
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Wine {
     pub alcohol: f32,
     pub malic_acid: f32,
@@ -19,7 +20,7 @@ pub struct Wine {
     pub label: Label,
 }
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum Label {
     Class0,
     Class1,

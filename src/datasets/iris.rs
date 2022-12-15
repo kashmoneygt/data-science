@@ -1,7 +1,7 @@
 /// [Iris plants dataset](https://github.com/scikit-learn/scikit-learn/blob/dc580a8ef5ee2a8aea80498388690e2213118efd/sklearn/datasets/descr/iris.rst) with 4 numeric, predictive attributes and the class.
 ///
 /// The data set contains 3 classes of 50 instances each, where each class refers to a type of iris plant. One class is linearly separable from the other 2; the latter are NOT linearly separable from each other.
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Iris {
     /// Length of the sepal in centimeters
     pub sepal_length: f32,
@@ -19,7 +19,7 @@ pub struct Iris {
     pub species: Species,
 }
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum Species {
     /// [Iris setosa](https://en.wikipedia.org/wiki/Iris_setosa), the bristle-pointed iris.
     IrisSetosa,
