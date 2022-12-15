@@ -1,4 +1,4 @@
-/// [Wine recognition dataset](https://github.com/scikit-learn/scikit-learn/blob/dc580a8ef5ee2a8aea80498388690e2213118efd/sklearn/datasets/descr/wine_data.rst), with 13 numeric, predictive attributes and the class.
+/// [Wine recognition dataset](https://github.com/scikit-learn/scikit-learn/blob/dc580a8ef5ee2a8aea80498388690e2213118efd/sklearn/datasets/descr/wine_data.rst) with 13 numeric, predictive attributes and the class.
 ///
 /// The data is the results of a chemical analysis of wines grown in the same region in Italy by three different cultivators. There are thirteen different measurements taken for different constituents found in the three types of wine.
 pub struct Wine {
@@ -15,6 +15,7 @@ pub struct Wine {
     pub hue: f32,
     pub od280_od315_of_diluted_wines: f32,
     pub proline: f32,
+
     pub label: Label,
 }
 
@@ -23,6 +24,40 @@ pub enum Label {
     Class0,
     Class1,
     Class2,
+}
+
+impl Label {
+    pub const fn to_str(&self) -> &str {
+        match self {
+            Label::Class0 => "class_0",
+            Label::Class1 => "class_1",
+            Label::Class2 => "class_2",
+        }
+    }
+}
+
+impl Wine {
+    pub const NUM_FEATURES: usize = 13;
+    pub const FEATURE_NAMES: [&str; Self::NUM_FEATURES] = [
+        "Alcohol",
+        "Malic acid",
+        "Ash",
+        "Alcalinity of ash",
+        "Magnesium",
+        "Total phenols",
+        "Flavanoids",
+        "Nonflavanoid phenols",
+        "Proanthocyanins",
+        "Color intensity",
+        "Hue",
+        "OD280/OD315 of diluted wines",
+        "Proline",
+    ];
+    pub const TARGET_NAMES: [&str; 3] = [
+        Label::Class0.to_str(),
+        Label::Class1.to_str(),
+        Label::Class2.to_str(),
+    ];
 }
 
 macro_rules! wine_row {

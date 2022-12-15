@@ -1,3 +1,6 @@
+/// [Breast Cancer Wisconsin dataset](https://github.com/scikit-learn/scikit-learn/blob/dc580a8ef5ee2a8aea80498388690e2213118efd/sklearn/datasets/descr/breast_cancer.rst) with 30 numeric, predictive attributes and the class.
+///
+/// Features are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass. They describe characteristics of the cell nuclei present in the image.
 pub struct BreastCancer {
     pub radius_mean: f32,
     pub texture_mean: f32,

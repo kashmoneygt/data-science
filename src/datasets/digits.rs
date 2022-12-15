@@ -1,7 +1,13 @@
-/// [Optical recognition of handwritten digits dataset](https://github.com/scikit-learn/scikit-learn/blob/dc580a8ef5ee2a8aea80498388690e2213118efd/sklearn/datasets/descr/digits.rst)
+/// [Optical recognition of handwritten digits dataset](https://github.com/scikit-learn/scikit-learn/blob/dc580a8ef5ee2a8aea80498388690e2213118efd/sklearn/datasets/descr/digits.rst) with 1797 samples and 64 features (8x8 image).
+///
+/// The data set contains images of hand-written digits: 10 classes where each class refers to a digit.
 pub struct Digits {
     pub pixels: [u8; 64],
     pub label: u8,
+}
+
+impl Digits {
+    pub const NUM_FEATURES: usize = 64;
 }
 
 pub const DATA: [Digits; 1797] = [

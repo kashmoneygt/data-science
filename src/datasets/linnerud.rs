@@ -1,6 +1,6 @@
-/// The Linnerud dataset is a multi-output regression dataset. It consists of 
-/// three exercise (data) and three physiological (target) variables collected 
-/// from twenty middle-aged men in a fitness club.
+/// [Linnerud dataset](https://github.com/scikit-learn/scikit-learn/blob/dc580a8ef5ee2a8aea80498388690e2213118efd/sklearn/datasets/descr/linnerud.rst) with 20 samples and 3 features.
+///
+/// The Linnerud dataset is a multi-output regression dataset. It consists of three exercise (data) and three physiological (target) variables collected from twenty middle-aged men in a fitness club.
 pub struct Linnerud {
     pub weight: i32,
     pub waist: i32,
@@ -10,15 +10,21 @@ pub struct Linnerud {
     pub jumps: i32,
 }
 
+impl Linnerud {
+    pub const NUM_FEATURES: usize = 6;
+    pub const FEATURE_NAMES: [&str; Self::NUM_FEATURES] =
+        ["weight", "waist", "pulse", "chins", "situps", "jumps"];
+}
+
 macro_rules! linnerud_row {
     ($weight : literal, $waist : literal, $pulse: literal, $chins : literal, $situps : literal, $jumps: literal) => {
-        Lennerud {
+        Linnerud {
             weight: $weight,
             waist: $waist,
-            puls: $pulse,
+            pulse: $pulse,
             chins: $chins,
             situps: $situps,
-            jump: $jumps,
+            jumps: $jumps,
         }
     };
 }
