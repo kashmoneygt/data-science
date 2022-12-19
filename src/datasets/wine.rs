@@ -1,28 +1,90 @@
-/// [Wine recognition dataset](https://github.com/scikit-learn/scikit-learn/blob/dc580a8ef5ee2a8aea80498388690e2213118efd/sklearn/datasets/descr/wine_data.rst), with 13 numeric, predictive attributes and the class.
+/// [Wine recognition dataset](https://github.com/scikit-learn/scikit-learn/blob/dc580a8ef5ee2a8aea80498388690e2213118efd/sklearn/datasets/descr/wine_data.rst) with 13 numeric, predictive attributes and the class.
 ///
 /// The data is the results of a chemical analysis of wines grown in the same region in Italy by three different cultivators. There are thirteen different measurements taken for different constituents found in the three types of wine.
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Wine {
+    /// Alcohol content
     pub alcohol: f32,
+
+    /// Malic acid content
     pub malic_acid: f32,
+
+    /// Ash content
     pub ash: f32,
+
+    /// Alcalinity of ash
     pub alcalinity_of_ash: f32,
+
+    /// Magnesium content
     pub magnesium: f32,
+
+    /// Total phenols
     pub total_phenols: f32,
+
+    /// Flavanoids
     pub flavanoids: f32,
+
+    /// Nonflavanoid phenols
     pub nonflavanoid_phenols: f32,
+
+    /// Proanthocyanins
     pub proanthocyanins: f32,
+
+    /// Color intensity
     pub color_intensity: f32,
+
+    /// Hue
     pub hue: f32,
+
+    /// OD280/OD315 of diluted wines
     pub od280_od315_of_diluted_wines: f32,
+
+    /// Proline
     pub proline: f32,
+
+    /// The type of wine (0, 1, or 2)
     pub label: Label,
 }
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum Label {
     Class0,
     Class1,
     Class2,
+}
+
+impl Label {
+    pub const fn to_str(&self) -> &str {
+        match self {
+            Label::Class0 => "class_0",
+            Label::Class1 => "class_1",
+            Label::Class2 => "class_2",
+        }
+    }
+}
+
+impl Wine {
+    pub const NUM_FEATURES: usize = 13;
+    pub const FEATURE_NAMES: [&str; Self::NUM_FEATURES] = [
+        "Alcohol",
+        "Malic acid",
+        "Ash",
+        "Alcalinity of ash",
+        "Magnesium",
+        "Total phenols",
+        "Flavanoids",
+        "Nonflavanoid phenols",
+        "Proanthocyanins",
+        "Color intensity",
+        "Hue",
+        "OD280/OD315 of diluted wines",
+        "Proline",
+    ];
+    pub const TARGET_NAMES: [&str; 3] = [
+        Label::Class0.to_str(),
+        Label::Class1.to_str(),
+        Label::Class2.to_str(),
+    ];
 }
 
 macro_rules! wine_row {

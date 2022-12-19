@@ -1,18 +1,7 @@
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
-pub enum Species {
-    /// [Iris setosa](https://en.wikipedia.org/wiki/Iris_setosa), the bristle-pointed iris.
-    IrisSetosa,
-
-    /// [Iris versicolor](https://en.wikipedia.org/wiki/Iris_versicolor), commonly known as the
-    /// blue flag.
-    IrisVersicolor,
-
-    /// [Iris virginica](https://en.wikipedia.org/wiki/Iris_virginica), commonly known as the
-    /// Virginia blueflag.
-    IrisVirginica,
-}
-
-#[derive(Debug, Copy, Clone, PartialEq)]
+/// [Iris plants dataset](https://github.com/scikit-learn/scikit-learn/blob/dc580a8ef5ee2a8aea80498388690e2213118efd/sklearn/datasets/descr/iris.rst) with 4 numeric, predictive attributes and the class.
+///
+/// The data set contains 3 classes of 50 instances each, where each class refers to a type of iris plant. One class is linearly separable from the other 2; the latter are NOT linearly separable from each other.
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Iris {
     /// Length of the sepal in centimeters
     pub sepal_length: f32,
@@ -30,6 +19,45 @@ pub struct Iris {
     pub species: Species,
 }
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum Species {
+    /// [Iris setosa](https://en.wikipedia.org/wiki/Iris_setosa), the bristle-pointed iris.
+    IrisSetosa,
+
+    /// [Iris versicolor](https://en.wikipedia.org/wiki/Iris_versicolor), commonly known as the
+    /// blue flag.
+    IrisVersicolor,
+
+    /// [Iris virginica](https://en.wikipedia.org/wiki/Iris_virginica), commonly known as the
+    /// Virginia blueflag.
+    IrisVirginica,
+}
+
+impl Species {
+    pub const fn to_str(&self) -> &str {
+        match self {
+            Self::IrisSetosa => "Iris setosa",
+            Self::IrisVersicolor => "Iris versicolor",
+            Self::IrisVirginica => "Iris virginica",
+        }
+    }
+}
+
+impl Iris {
+    pub const NUM_FEATURES: usize = 4;
+    pub const FEATURE_NAMES: [&str; Self::NUM_FEATURES] = [
+        "sepal length (cm)",
+        "sepal width (cm)",
+        "petal length (cm)",
+        "petal width (cm)",
+    ];
+    pub const TARGET_NAMES: [&str; 3] = [
+        Species::IrisSetosa.to_str(),
+        Species::IrisVersicolor.to_str(),
+        Species::IrisVirginica.to_str(),
+    ];
+}
+
 macro_rules! iris_row {
     ($sepal_length: literal, $sepal_width: literal, $petal_length: literal, $petal_width: literal, $species: ident) => {
         Iris {
@@ -43,7 +71,7 @@ macro_rules! iris_row {
 }
 
 /// [Fisher's Iris data set](https://en.wikipedia.org/wiki/Iris_flower_data_set).
-pub const IRIS_DATA: &[Iris; 150] = &[
+pub const DATA: &[Iris; 150] = &[
     iris_row!(5.1, 3.5, 1.4, 0.2, IrisSetosa),
     iris_row!(4.9, 3.0, 1.4, 0.2, IrisSetosa),
     iris_row!(4.7, 3.2, 1.3, 0.2, IrisSetosa),
@@ -202,7 +230,7 @@ fn count_species() {
     let mut versicolor = 0;
     let mut virginica = 0;
 
-    for i in IRIS_DATA {
+    for i in DATA {
         match i.species {
             Species::IrisSetosa => setosa += 1,
             Species::IrisVersicolor => versicolor += 1,

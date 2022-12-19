@@ -1,41 +1,103 @@
+/// [Breast Cancer Wisconsin dataset](https://github.com/scikit-learn/scikit-learn/blob/dc580a8ef5ee2a8aea80498388690e2213118efd/sklearn/datasets/descr/breast_cancer.rst) with 30 numeric, predictive attributes and the class.
+///
+/// Features are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass. They describe characteristics of the cell nuclei present in the image.
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub struct BreastCancer {
+    /// The mean radius of all cell nuclei in the image
     pub radius_mean: f32,
+
+    /// The mean of all gray-scale values in the image
     pub texture_mean: f32,
+
+    /// The mean perimeter of all cell nuclei in the image
     pub perimeter_mean: f32,
+
+    /// The mean area of all cell nuclei in the image
     pub area_mean: f32,
+
+    /// The mean local variation in radius lengths of all cell nuclei in the image
     pub smoothness_mean: f32,
+
+    /// The mean perimeter^2 / area - 1.0 of all cell nuclei in the image
     pub compactness_mean: f32,
+
+    /// The mean severity of concave portions of the contour of all cell nuclei in the image
     pub concavity_mean: f32,
+
+    /// The mean number of concave portions of the contour of all cell nuclei in the image
     pub concave_points_mean: f32,
+
+    /// The mean symmetry of all cell nuclei in the image
     pub symmetry_mean: f32,
+
+    /// The mean [coastline approximation](https://en.wikipedia.org/wiki/Coastline_paradox) - 1 of all cell nuclei in the image
     pub fractal_dimension_mean: f32,
 
+    /// The standard deviation of all radius values in the image
     pub radius_standard: f32,
+
+    /// The standard deviation of all gray-scale values in the image
     pub texture_standard: f32,
+
+    /// The standard deviation of all perimeter values in the image
     pub perimeter_standard: f32,
+
+    /// The standard deviation of all area values in the image
     pub area_standard: f32,
+
+    /// The standard deviation of all smoothness values in the image
     pub smoothness_standard: f32,
+
+    /// The standard deviation of all compactness values in the image
     pub compactness_standard: f32,
+
+    /// The standard deviation of all concavity values in the image
     pub concavity_standard: f32,
+
+    /// The standard deviation of all concave points values in the image
     pub concave_points_standard: f32,
+
+    /// The standard deviation of all symmetry values in the image
     pub symmetry_standard: f32,
+
+    /// The standard deviation of all fractal dimension values in the image
     pub fractal_dimension_standard: f32,
 
+    /// The mean of the three largest radius values in the image
     pub radius_worst: f32,
+
+    /// The mean of the three largest gray-scale values in the image
     pub texture_worst: f32,
+
+    /// The mean of the three largest perimeter values in the image
     pub perimeter_worst: f32,
+
+    /// The mean of the three largest area values in the image
     pub area_worst: f32,
+
+    /// The mean of the three largest smoothness values in the image
     pub smoothness_worst: f32,
+
+    /// The mean of the three largest compactness values in the image
     pub compactness_worst: f32,
+
+    /// The mean of the three largest concavity values in the image
     pub concavity_worst: f32,
+
+    /// The mean of the three largest concave points values in the image
     pub concave_points_worst: f32,
+
+    /// The mean of the three largest symmetry values in the image
     pub symmetry_worst: f32,
+
+    /// The mean of the three largest fractal dimension values in the image
     pub fractal_dimension_worst: f32,
 
+    /// Whether the image represents a malignant or benign breast mass
     pub label: Label,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum Label {
     Malignant,
     Benign,
@@ -2979,3 +3041,19 @@ pub const DATA: [BreastCancer; 569] = [
         0.06444, 0, 0, 0.2871, 0.07039, 1
     ),
 ];
+
+#[test]
+fn count_label() {
+    let mut malignant = 0;
+    let mut benign = 0;
+
+    for i in DATA {
+        match i.label {
+            Label::Benign => benign += 1,
+            Label::Malignant => malignant += 1,
+        }
+    }
+
+    assert_eq!(benign, 357);
+    assert_eq!(malignant, 212);
+}

@@ -3,6 +3,8 @@
 #![allow(clippy::approx_constant)]
 
 pub mod breast_cancer;
+pub mod diabetes;
 pub mod digits;
 pub mod iris;
+pub mod linnerud;
 pub mod wine;
