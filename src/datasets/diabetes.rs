@@ -42,6 +42,7 @@ pub struct Diabetes {
 }
 
 impl Index<usize> for Diabetes {
+    // TODO: Because `age` and `sex` are actually `i32`s, refactor this implementation to handle multiple return types
     type Output = f32;
 
     fn index(&self, index: usize) -> &Self::Output {
