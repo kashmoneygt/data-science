@@ -3,11 +3,22 @@
 /// The Linnerud dataset is a multi-output regression dataset. It consists of three exercise (data) and three physiological (target) variables collected from twenty middle-aged men in a fitness club.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Linnerud {
+    /// Weight in pounds
     pub weight: i32,
+
+    /// Waist in inches
     pub waist: i32,
+
+    /// Pulse in beats per minute
     pub pulse: i32,
+
+    /// Number of chin-ups
     pub chins: i32,
+
+    /// Number of sit-ups
     pub situps: i32,
+
+    /// Number of jumps
     pub jumps: i32,
 }
 

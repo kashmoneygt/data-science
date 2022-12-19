@@ -7,17 +7,37 @@ use crate::utils::scale;
 /// Ten baseline variables (age, sex, body mass index, average blood pressure, and six blood serum measurements) were obtained for each of n = 442 diabetes patients, as well as the response of interest, a quantitative measure of disease progression one year after baseline.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Diabetes {
+    /// age in years
     pub age: f32,
+
+    /// sex (two classes, represented as either a 1 or 2)
     pub sex: f32,
+
+    /// body mass index
     pub bmi: f32,
+
+    /// average blood pressure
     pub bp: f32,
+
+    /// total serum cholesterol
     pub tc: f32,
+
+    /// low-density lipoproteins
     pub ldl: f32,
+
+    /// high-density lipoproteins
     pub hdl: f32,
+
+    /// total cholesterol / HDL
     pub tch: f32,
+
+    /// possibly log of serum triglycerides level
     pub ltg: f32,
+
+    /// blood sugar level
     pub glu: f32,
 
+    /// quantitative measure of disease progression one year after baseline
     pub target: i32,
 }
 

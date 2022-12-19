@@ -3,7 +3,10 @@
 /// The data set contains images of hand-written digits: 10 classes where each class refers to a digit.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Digits {
+    /// 8x8 image of integer values in the range 0 to 16
     pub pixels: [u8; Self::NUM_FEATURES],
+
+    /// integer value in the range 0 to 9, representing the digit written in the image
     pub label: u8,
 }
 
