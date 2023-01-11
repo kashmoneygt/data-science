@@ -80,6 +80,42 @@ impl IndexMut<usize> for Diabetes {
     }
 }
 
+impl scale::Scalable for Diabetes {
+    const COLUMN_COUNT: usize = Diabetes::NUM_FEATURES;
+
+    fn get_as_f64(&self, index: usize) -> Option<f64> {
+        match index {
+            0 => Some(self.age.into()),
+            1 => Some(self.sex.into()),
+            2 => Some(self.bmi.into()),
+            3 => Some(self.bp.into()),
+            4 => Some(self.tc.into()),
+            5 => Some(self.ldl.into()),
+            6 => Some(self.hdl.into()),
+            7 => Some(self.tch.into()),
+            8 => Some(self.ltg.into()),
+            9 => Some(self.glu.into()),
+            _ => None,
+        }
+    }
+
+    fn set_f64(&mut self, index: usize, value: f64) {
+        match index {
+            0 => self.age = value as f32,
+            1 => self.sex = value as f32,
+            2 => self.bmi = value as f32,
+            3 => self.bp = value as f32,
+            4 => self.tc = value as f32,
+            5 => self.ldl = value as f32,
+            6 => self.hdl = value as f32,
+            7 => self.tch = value as f32,
+            8 => self.ltg = value as f32,
+            9 => self.glu = value as f32,
+            _ => {}
+        }
+    }
+}
+
 impl Diabetes {
     pub const NUM_FEATURES: usize = 10;
     pub const FEATURE_NAMES: [&str; Self::NUM_FEATURES] = [
@@ -96,15 +132,10 @@ impl Diabetes {
     ];
 
     pub fn get_as_vec(scaled: bool) -> Vec<Self> {
-        let data = DATA.to_vec();
+        let mut data = DATA.to_vec();
 
         if scaled {
-            for i in 0..Self::NUM_FEATURES {
-                let col = data.iter().map(|row| row[i]).collect();
-                let col_scaled = scale::scale(&col);
-            }
-
-            todo!("Implement scaling");
+            scale::scale_subtract_mean(&mut data);
         }
 
         data
