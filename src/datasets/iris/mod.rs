@@ -11,6 +11,11 @@ impl Iris {
         "petal length (cm)",
         "petal width (cm)",
     ];
+    pub const NUM_ROWS: usize = iris::DATA.len();
+
+    pub fn get_as_vec() -> Vec<Self> {
+        iris::DATA.to_vec()
+    }
 }
 
 #[test]
@@ -19,7 +24,7 @@ fn count_species() {
     let mut versicolor = 0;
     let mut virginica = 0;
 
-    for i in crate::datasets::iris::DATA {
+    for i in iris::DATA {
         match i.class {
             "Iris-setosa" => setosa += 1,
             "Iris-versicolor" => versicolor += 1,

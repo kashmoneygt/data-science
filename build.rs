@@ -7,11 +7,11 @@ mod breast_cancer;
 use breast_cancer::BreastCancer;
 
 fn main() {
-    let cur_dir = env::current_dir().unwrap(); //("OUT_DIR").unwrap();
+    let cur_dir = env::current_dir().unwrap();
     let cur_dir = cur_dir.to_str().unwrap();
 
     let src_datasets = format!("{cur_dir}/src/datasets");
-    let root_datasets = format!("{cur_dir}/datasets");
+    let raw_data = format!("{cur_dir}/raw_data");
 
     macro_rules! generate_data_file {
         ($struct_name: ident, $filename: literal) => {
@@ -19,7 +19,7 @@ fn main() {
             // 1. create datasets/iris/ directory if not exists,
             // 2. stub in a mod.rs file if not exists, and
             // 3. generate (below) datasets/iris/iris.rs
-            let out_file = format!("{src_datasets}/{}.rs", $filename);
+            let out_file = format!("{src_datasets}/{}/{}.rs", $filename, $filename);
             let out_file = File::create(&out_file).unwrap();
             let mut buf = std::io::BufWriter::new(out_file);
 
@@ -35,8 +35,7 @@ fn main() {
             }
             writeln!(buf, "}}").ok();
 
-            eprintln!("foo!");
-            let data = $struct_name::load_csv(&format!("{root_datasets}/{}.csv", $filename))
+            let data = $struct_name::load_csv(&format!("{raw_data}/{}.csv", $filename))
                 .expect(&format!("Couldn't load {}.csv", $filename))
                 .flatten()
                 .collect::<Vec<_>>();
