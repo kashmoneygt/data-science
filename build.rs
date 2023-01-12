@@ -1,10 +1,8 @@
 use std::{env, fs::File, io::Write};
 
-mod iris;
-use iris::Iris;
-
-mod breast_cancer;
-use breast_cancer::BreastCancer;
+mod generated_types;
+use generated_types::breast_cancer::BreastCancer;
+use generated_types::iris::Iris;
 
 fn main() {
     let cur_dir = env::current_dir().unwrap();
